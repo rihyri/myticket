@@ -2,11 +2,14 @@
 
 
 · 작업기간 :  2024.05.13. - 2024.06.03. (3주)
+<br>
 · 작업인원 :  1명 (이혜리)
+<br>
 · 작업툴 :  
           java, Spring Boot(async-await), JPA, Maria DB, intelliJ,
           Ajax, thyemleaf, API통신, AWS,
           html, css, java script, jqery, figma, Boot Strap
+<br>
 · 개발 환경
  IDE : intelliJ
  java version : 17
