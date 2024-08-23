@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="footerFrag">
+    <footer>
+        <div class="footer_menu">
+            <ul>
+                <li><a href="#">회사소개</a></li>
+                <li><a href="#" class="bold">개인정보 처리방침</a></li>
+                <li><a href="#">청소년 보호정책</a></li>
+                <li><a href="#">이용약관</a></li>
+                <li><a href="#">고객센터</a></li>
+                <li><a href="#">티켓판매안내</a></li>
+                <li><a href="#">광고안내</a></li>
+            </ul>
+        </div>
+        <div class="second_footer">
+            <address>
+                주소: 06043 서울특별시 강남구 강남대로 586, 제이빌딩 | 대표이사: 이상혁 | 사업자등록번호:144-81-25090<br>
+                1588-7890 | hyerijw1221@naver.com | 통신판매업 신고번호: 제 2023-서울강남-04352호 | <b>사업자정보확인</b> | 개인정보보호 책임자: 류민석<br><br>
+                <div class="copyright">Copyright ⓒ LHR.All rights reserved.</div>
+            </address>
+            <div class="sns">
+                <ul>
+                    <li><a href="#"><img th:src="@{/img/youtube.png}" alt="유투브"></a></li>
+                    <li><a href="#"><img th:src="@{/img/facebook.png}" alt="페이스북"></a></li>
+                    <li><a href="#"><img th:src="@{/img/twitter.png}" alt="트위터"></a></li>
+                    <li><a href="#"><img th:src="@{/img/instagram.png}" alt="인스타그램"></a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</th:block>
+</html>

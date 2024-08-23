@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+  <div class="wrap">
+    <section class="sec3">
+      <h2>상세 정보</h2>
+      <div class="game_detail">
+        <div class="game_img">
+          <img th:src="@{/img/lck.png}" alt="lck로고">
+        </div>
+        <div class="game_txt">
+          <span>단독판매</span>
+          <h3 th:text="${game.title}"></h3>
+          <div class = "g_teams">
+            <div class="g_red"><b>RED TEAM </b><p th:text="${game.redTeam}"></p></div>
+            <div class="g_blue"><b>BLUE TEAM </b><p th:text="${game.blueTeam}"></p></div>
+          </div>
+          <div class="g_date"><b>경기 날짜 </b><p th:text="${game.gameDate}"></p></div>
+          <div class="g_time"><b>경기 시간 </b><p th:text="${game.gameTime}"></p></div>
+          <div class="g_place"><b>경기 장소 </b><p th:text="${game.place}"></p></div>
+          <div class="g_price"><b>티켓가격 </b><p th:text="|${game.price}원|"></p></div>
+        </div>
+      </div>
+      <a th:href="@{|/reserve/start?title=${game.title}&redTeam=${game.redTeam}&blueTeam=${game.blueTeam}&gameDate=${game.gameDate}|}" class="btn btn-primary">예매하기</a>
+      <a th:href="@{/games/list}" class="btn btn-primary">경기목록</a>
+      <a th:href="@{/}" class="btn btn-secondary">메인화면</a>
+      <a href="javascript:void(0);" th:data-uri="@{|/games/delete/${game.id}|}" class="delete btn btn-secondary" sec:authorize="isAuthenticated()" th:if="${#authentication.getPrincipal().getUsername() == 'admin'}" th:text="삭제하기"></a>
+      <div class="ticket_info">
+        <img th:src="@{/img/ticketInfo.png}" alt="티켓안내">
+      </div>
+    </section>
+  </div>
+  <script layout:fragment="script" type='text/javascript'>
+    const delete_elements = document.getElementsByClassName("delete");
+    Array.from(delete_elements).forEach(function(element) {
+      element.addEventListener('click', function() {
+       if(confirm("정말로 삭제하시겠습니까?")) {
+        location.href = this.dataset.uri;
+      }
+      });
+    });
+  </script>
+</th:block>
+</body>
+</html>

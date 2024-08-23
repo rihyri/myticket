@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<th:block layout:fragment="content">
+    <section class="s1">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                        aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"
+                        aria-label="Slide 4"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4"
+                        aria-label="Slide 5"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5"
+                        aria-label="Slide 6"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img th:src="@{/img/GenG_T1.png}" class="d-block w-100" alt="슬라이드1">
+                </div>
+                <div class="carousel-item">
+                    <img th:src="@{/img/GenG.png}" class="d-block w-100" alt="슬라이드2">
+                </div>
+                <div class="carousel-item">
+                    <img th:src="@{/img/T1.png}" class="d-block w-100" alt="슬라이드3">
+                </div>
+                <div class="carousel-item">
+                    <img th:src="@{/img/KT.png}" class="d-block w-100" alt="슬라이드4">
+                </div>
+                <div class="carousel-item">
+                    <img th:src="@{/img/DplusKia.png}" class="d-block w-100" alt="슬라이드5">
+                </div>
+                <div class="carousel-item">
+                    <img th:src="@{/img/KDF.png}" class="d-block w-100" alt="슬라이드6">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+    <div class="wrap">
+        <section class="s2">
+            <h1>티켓 예매</h1>
+                <div class="ticket_img">
+                        <a th:href="@{/games/list}">
+                            <div class="ticket_back">
+                                <img th:src="@{/img/ari.png}" alt="티켓 예매하기">
+                                <div class="ticket_text">
+                                    <h1>현재 판매중인</h1>
+                                    <h1>경기가 궁금하다면?</h1>
+                                    <p>예매 바로가기</p>
+                                </div>
+                            </div>
+                        </a>
+                </div>
+        </section>
+        <section class="s3 rank_sec">
+            <h1>LCK 랭킹</h1>
+            <div class="rank_box">
+                <span>2024 LCK Summer 기준</span>
+            </div>
+            <div class="ranking">
+                <div class="rank r1">
+                    <div class="rank_top">
+                        <div class="rank_img">
+                            <img th:src="@{/img/geng_mark.png}" alt="젠지마크">
+                        </div>
+                        <i class="rank_txt">1</i>
+                    </div>
+                    <p>Gen.G esports</p>
+                </div>
+                <div class="rank r2">
+                    <div class="rank_top">
+                        <div class="rank_img">
+                            <img th:src="@{/img/hanwha_mark.png}" alt="한화마크">
+                        </div>
+                        <i class="rank_txt">2</i>
+                    </div>
+                    <p>한화생명</p>
+                </div>
+                <div class="rank r3">
+                    <div class="rank_top">
+                        <div class="rank_img">
+                            <img th:src="@{/img/dk_mark.png}" alt="담원마크">
+                        </div>
+                        <i class="rank_txt">3</i>
+                    </div>
+                    <p>디플러스 기아</p>
+                </div>
+                <div class="rank r4">
+                    <div class="rank_top">
+                        <div class="rank_img">
+                            <img th:src="@{/img/t1_mark.png}" alt="티원마크">
+                        </div>
+                        <i class="rank_txt">4</i>
+                    </div>
+                    <p>T1</p>
+                </div>
+                <div class="rank r5">
+                    <div class="rank_top">
+                        <div class="rank_img">
+                            <img th:src="@{/img/kt_mark.png}" alt="KT마크">
+                        </div>
+                        <i class="rank_txt">5</i>
+                    </div>
+                    <p>KT Rolesters</p>
+                </div>
+            </div>
+        </section>
+        <section class="s4">
+            <h1>오늘의 선수</h1>
+            <div class="choices">
+                <div class="choice_left">
+                    <h3>Gen.G esports</h3>
+                    <h2>기인 (Kiin) </h2>
+                </div>
+                <div class="choice_center">
+                    <div class="choice_img">
+                        <img th:src="@{/img/kiin.png}" alt="기인">
+                    </div>
+                </div>
+                <div class="choice_right">
+                    <div class="choice_txt">
+                        <hr>
+                        <p>
+                            우승하기 위하여 <b>젠지에 왔다.</b><br>
+                            프로게이머로 데뷔 한지도 <b>벌써 7년.</b><br>
+                            기인은 아직 우승 트로피를 얻지 못했다.<br>
+                            올해가 바로 우승할 최적의 타이밍!<br>
+                            과연 기인은 당당히<br>
+                            <i>LCK 왕좌 자리를 차지할 수 있을까?</i>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="s5">
+            <div class="event">
+                <a th:href="@{/event/list}">
+                    <img th:src="@{img/event.png}" alt="이벤트배너">
+                </a>
+            </div>
+        </section>
+        <section class="s6">
+            <div class="store">
+                <div class="store_txt">
+                    <div class="store_logo">
+                        <a href="#"><img th:src="@{/img/store_logo.svg}" alt="라이엇스토어로고"></a>
+                    </div>
+                    <p>더 많은 League of Legends 상품들을 만나보세요!</p>
+                    <a href="#" class="a2">바로가기</a>
+                </div>
+                <div class="store_img">
+                    <img th:src="@{/img/timo2.png}" alt="티모">
+                </div>
+            </div>
+        </section>
+    </div>
+</th:block>
+</html>

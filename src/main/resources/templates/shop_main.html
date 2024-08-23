@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+
+<body>
+<th:block layout:fragment="content">
+    <div class="wrap">
+        <div class="item_title_pic">
+            <img th:src="@{/img/shopbanner.png}" alt="키보드">
+        </div>
+        <section class="item_search">
+            <div class="item_menu_wrap">
+                <div class="shop_main w-80">
+                    <div class="row">
+                        <th:block th:each="item, status: ${items.getContent()}">
+                            <div class="col-md-4 margin">
+                                <div class="card">
+                                    <a th:href="'/item/' +${item.id}" class="text-dark">
+                                        <img th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}"
+                                             height="400">
+                                        <div class="card-body">
+                                            <h4 class="card-title">[[${item.itemNm}]]</h4>
+                                            <h3 class="card-title text-danger">[[${item.price}]]원</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </th:block>
+                    </div>
+                </div>
+                <div class="shop_menu" id="shopMenu">
+                    <ul>
+                        <li>QUICK<br><b>MENU</b></li>
+                        <li>
+                            <a th:href="@{/orders}">
+                                <img th:src="@{/img/box_icon.png}" alt="박스아이콘">
+                                <span>예매목록</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/cart}">
+                                <img th:src="@{/img/bag_icon.png}" alt="장바구니">
+                                <span>장바구니</span>
+                            </a>
+                        </li>
+                        <li>CS센터<br><b>1234-5678</b></li>
+                    </ul>
+                </div>
+            </div>
+            <div th:with="start=${(items.number/maxPage)*maxPage + 1}, end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})">
+                <ul class="pagination justify-content-center">
+
+                    <li class="page-item" th:classappend="${items.number eq 0}?'disabled':''">
+                        <a th:href="@{'/' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number-1}}"
+                           aria-label='Previous' class="page-link">
+                            <span aria-hidden='true'>Prev</span>
+                        </a>
+                    </li>
+
+                    <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}"
+                        th:classappend="${items.number eq page-1}?'active':''">
+                        <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${page-1}}"
+                           th:inline="text" class="page-link">[[${page}]]</a>
+                    </li>
+
+                    <li class="page-item" th:classappend="${items.number+1 ge items.totalPages}?'disabled':''">
+                        <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number+1}}"
+                           aria-label='Next' class="page-link">
+                            <span aria-hidden='true'>Next</span>
+                        </a>
+                    </li>
+                </ul>
+                <a th:href="@{/admin/item/new}" th:if="${#authentication.getPrincipal().getUsername() == 'admin'}" class="btn btn-primary">상품 등록하기</a>
+                <a th:href="@{/admin/items}" th:if="${#authentication.getPrincipal().getUsername() == 'admin'}" class="btn btn-secondary">등록한 상품 목록</a>
+            </div>
+        </section>
+    </div>
+  <script th:inline="javascript">
+      $(document).ready(function() {
+        var $shopMenu = $('#shopMenu');
+        var offset = $shopMenu.offset();
+
+        $(window).scroll(function() {
+            if ($(window).scrollTop() > offset.top) {
+                $shopMenu.addClass('sticky').css('left', offset.left + 'px');
+            } else {
+                $shopMenu.removeClass('sticky').css('left', '');
+            }
+        });
+    });
+    </script>
+</th:block>
+</body>
+</html>

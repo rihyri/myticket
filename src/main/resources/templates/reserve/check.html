@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout">
+<th:block layout:fragment="content">
+  <div class="wrap">
+    <section class="s3">
+      <form th:action="@{/reserve/done}" class="tic_check" method="post">
+        <input type="hidden" name="title" th:value="${title}">
+        <input type="hidden" name="username" th:value="${#authentication.principal.username}">
+        <input type="hidden" name="gameDate" th:value="${gameDate}">
+        <input type="hidden" name="redTeam" th:value="${redTeam}">
+        <input type="hidden" name="blueTeam" th:value="${blueTeam}">
+        <input type="hidden" name="reservation_day" th:value="${reservation_day}">
+        <input type="hidden" name="reservation_num" th:value="${reservation_num}">
+
+        <div class="content check">
+          <table class="wrapper" role="presentation">
+            <tr>
+              <td>
+                <img th:src="@{/img/lck.png}" alt="lck로고">
+              </td>
+              <td class="reservation-box">
+                <table role="presentation">
+                  <tr>
+                    <td>
+                      <h1>예매 확인</h1>
+                      <p>예매 내역을 확인해 주세요.</p>
+                    </td>
+                  </tr>
+                </table>
+                <table role="presentation" class="ticket_info">
+                  <tr>
+                    <td>경기 타이틀</td>
+                    <td>
+                      <span th:text="${title}"></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>경기 일시</td>
+                    <td>
+                      <span th:text="${gameDate}"></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>좌석 번호</td>
+                    <td>
+                      <span th:text="${reservation_num}"></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>레드팀</td>
+                    <td>
+                    <span th:text="${redTeam}"></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>블루팀</td>
+                    <td>
+                    <span th:text="${blueTeam}"></span>
+                    </td>
+                  </tr>
+                </table>
+                <table role="presentation">
+                  <tr>
+                    <td>
+                      <a th:href="@{|/reserve/start?title=${title}&redTeam=${redTeam}&blueTeam=${blueTeam}&gameDate=${gameDate}|}" class="btn btn-secondary">돌아가기</a>
+                      <button type="submit" id="doneBtn" class="btn btn-primary">예매완료</button>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </form>
+    </section>
+  </div>
+  <script th:inline = "javascript">
+    function getSelectedSeatsForm() {
+        const selectedSeats = JSON.parse (
+          localStorage.getItem("selectedSeats")) || [];
+        return selectedSeats;
+    }
+
+    function updateSeatsOnSubmit() {
+        const selectedSeats = getSelectedSeatsForm();
+        selectedSeats.forEach(seatId => {
+          const seatElement = document.querySelector(`.seat[data-seat="${seatId}"]`);
+          if (seatElement) {
+            seatElement.classList.remove("selectedSeat");
+            seatElement.classList.add("occupiedSeat");
+          }
+        });
+    }
+
+    // 아이디가 doneBtn인 요소에 클릭 이벤트 설정
+    document.getElementById("doneBtn").addEventListener("click", function() {
+      updateSeatsOnSubmit();
+      localStorage.removeItem("selectedSeats");
+    });
+  </script>
+</th:block>
+</html>

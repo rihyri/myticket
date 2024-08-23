@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout">
+<th:block layout:fragment="content">
+    <div class="wrap">
+        <section class="s3 check_sec">
+            <h2 class="res_check">예매 내역 확인</h2>
+            <div class="reserve-container">
+                <div th:each = "reservation : ${reservations}">
+                    <div class="game">
+                        <div class="game-img">
+                            <img th:src="@{/img/lck.png}" alt="lck로고">
+                        </div>
+                        <div class="game-info">
+                            <p><span th:text="${reservation.title}"></span></p>
+                            <p>좌석 번호 : <span th:text="${reservation.reservation_num}"></span></p>
+                            <p>경기 일자 : <span th:text="${reservation.reservation_day}"></span></p>
+                        </div>
+                        <div class="game-btn">
+                            <button class="cancelBtn btn btn-primary" th:data-reserve-id="${reservation.reservation_id}" onclick="cancelfn(this.dataset.reserveId)">예매취소</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script th:inline="javascript">
+        function cancelfn(reservation_id) {
+            if (confirm("정말로 예매를 취소하시겠습니까?")) {
+                // <예>버튼 클릭했을 때
+
+                var token = $("meta[name='_csrf']").attr("content");
+
+                fetch("/my/myReserve/" + reservation_id, {
+                    method:"DELETE",
+                    headers: {
+                        "Content-Type" : "application/json",
+                        "X-CSRF-TOKEN": token
+                    }
+                }).then(response => {
+                    if(response.ok) {
+                        alert("예매 취소가 완료되었습니다.");
+                        // 페이지 새로고침
+                        window.location.reload();
+                    } else {
+                        alert("예매 취소에 실패하였습니다.");
+                    }
+                }).catch(error => {
+                    alert("예매 취소에 실패하였습니다.");
+                });
+            } else {
+                // 아니오 클릭 했을 때 페이지 새로고침
+                window.location.reload();
+            }
+        }
+    </script>
+</th:block>
+</html>

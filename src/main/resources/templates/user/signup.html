@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<th:block layout:fragment="content">
+  <div class="wrap">
+    <section class="sec2">
+      <h2>회원가입</h2>
+      <form th:action="@{/member/signup}" th:object="${memberForm}" method="post">
+        <div class="mb-3 form_div">
+          <label for="userName" class="form-label">사용자 ID</label>
+          <input type="text" id="userName" name="userName" class="form-control" th:field="*{userName}">
+          <p th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" class="fieldError">Incorrect data</p>
+        </div>
+        <div class="mb-3 form_div">
+          <label for="password" class="form-label">비밀번호 <span class="pass">* 비밀번호는 8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.</span></label>
+          <input type="password" id="password" name="password" class="form-control" th:field="*{password}">
+          <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect data</p>
+        </div>
+        <div class="mb-3 form_div">
+          <label for="password2" class="form-label">비밀번호 확인</label>
+          <input type="password" id="password2" name="password2" class="form-control" th:field="*{password2}">
+          <p th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}" class="fieldError">Incorrect data</p>
+        </div>
+        <div class="mb-3 form_div">
+          <label for="email" class="form-label">이메일</label>
+          <input type="email" id="email" name="email" class="form-control" th:field="*{email}">
+          <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect data</p>
+        </div>
+        <button type="submit" class="btn btn-primary">회원가입</button>
+        <button type="reset" class="btn btn-secondary">다시쓰기</button>
+        <a th:href="@{/}" class="btn btn-secondary" th:text="홈으로"></a>
+      </form>
+    </section>
+  </div>
+</th:block>
+</html>

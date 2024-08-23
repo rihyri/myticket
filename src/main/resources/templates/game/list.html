@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout">
+<th:block layout:fragment="content">
+    <div class="wrap">
+        <section class="sec">
+                <h2>경기 목록</h2>
+                <div class="game_list" th:each="game : ${gameList}">
+                    <div class="game_left">
+                        <div class="game_img">
+                            <a th:href="@{|/games/detail/${game.id}|}">
+                                <img th:src="@{/img/lck.png}" alt="lck로고">
+                            </a>
+                        </div>
+                        <div class="game_txt">
+                            <a th:href="@{|/games/detail/${game.id}|}" th:text="${game.title}"></a>
+                            <span th:text="${game.gameDate}"></span>
+                            <p th:text="${game.place}"></p>
+                        </div>
+                    </div>
+                    <a th:href="@{|/reserve/start?title=${game.title}&redTeam=${game.redTeam}&blueTeam=${game.blueTeam}&gameDate=${game.gameDate}|}" class="btn btn-primary">예매하기</a>
+                </div>
+            <a th:href="@{/games/create}" class="under-btn btn btn-primary" th:if="${#authentication.getPrincipal().getUsername() == 'admin'}">경기 등록하기</a>
+            <a th:href="@{/}" class="under-btn btn btn-secondary">메인화면</a>
+        </section>
+    </div>
+</th:block>
+</html>

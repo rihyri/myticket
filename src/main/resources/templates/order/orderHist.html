@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout">
+
+<th:block layout:fragment="content" class="content-mg">
+    <div class="wrap">
+        <section class="item_form">
+            <div class="item_menu_wrap">
+                <div class="w-80 cart_list">
+                    <h2 class="mb-4">구매 이력</h2>
+                    <div th:each="order : ${orders.getContent()}">
+
+                        <div class="d-flex mb-3 align-self-center">
+                            <h4 th:text="${order.orderDate} + ' 주문'"></h4>
+                            <div class="ml-3">
+                                <th:block th:if="${order.orderStatus == T(jpastore.jpaticket.domain.OrderStatus).ORDER}">
+                                    <button type="button" class="btn btn-outline-secondary" th:value="${order.orderId}"
+                                            onclick="cancelOrder(this.value)">주문취소
+                                    </button>
+                                </th:block>
+                                <th:block th:unless="${order.orderStatus == T(jpastore.jpaticket.domain.OrderStatus).ORDER}">
+                                    <h4>(취소 완료)</h4>
+                                </th:block>
+                            </div>
+                        </div>
+                        <div class="card d-flex">
+                            <div th:each="orderItem : ${order.orderItemDtoList}" class="d-flex mb-3">
+                                <div class="repImgDiv">
+                                    <img th:src="${orderItem.imgUrl}" class="rounded regImg" th:alt="${orderItem.itemNm}">
+                                </div>
+                                <div class="align-self-center w-75">
+                                    <span th:text="${orderItem.itemNm}" class="fs24 font-weight-bold"></span>
+                                    <div class="fs18 font-weight-light">
+                                        <span th:text="${orderItem.orderPrice} +'원'"></span>
+                                        <span th:text="${orderItem.count} +'개'"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="shop_menu" id="shopMenu">
+                    <ul>
+                        <li>QUICK<br><b>MENU</b></li>
+                        <li>
+                            <a th:href="@{/orders}">
+                                <img th:src="@{/img/box_icon.png}" alt="박스아이콘">
+                                <span>예매목록</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/cart}">
+                                <img th:src="@{/img/bag_icon.png}" alt="장바구니">
+                                <span>장바구니</span>
+                            </a>
+                        </li>
+                        <li>CS센터<br><b>1234-5678</b></li>
+                    </ul>
+                </div>
+            </div>
+            <div th:with="start=${(orders.number/maxPage)*maxPage + 1}, end=${(orders.totalPages == 0) ? 1 : (start + (maxPage - 1) < orders.totalPages ? start + (maxPage - 1) : orders.totalPages)}">
+                <ul class="pagination justify-content-center">
+
+                    <li class="page-item" th:classappend="${orders.number == 0} ? 'disabled' : ''">
+                        <a th:href="@{'/orders/' + ${orders.number-1}}" aria-label='Previous' class="page-link">
+                            <span aria-hidden='true'>Prev</span>
+                        </a>
+                    </li>
+
+                    <li class="page-item" th:each="page : ${#numbers.sequence(start, end)}"
+                        th:classappend="${orders.number == page-1} ? 'active' : ''">
+                        <a th:href="@{'/orders/' + ${page-1}}" th:inline="text" class="page-link">[[${page}]]</a>
+                    </li>
+
+                    <li class="page-item" th:classappend="${orders.number+1 >= orders.totalPages} ? 'disabled' : ''">
+                        <a th:href="@{'/orders/' + ${orders.number+1}}" aria-label='Next' class="page-link">
+                            <span aria-hidden='true'>Next</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </section>
+    </div>
+    <script th:inline="javascript">
+        function cancelOrder(orderId) {
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            var url = "/order/" + orderId + "/cancel";
+            var paramData = {
+                orderId: orderId,
+            };
+
+            var param = JSON.stringify(paramData);
+
+            $.ajax({
+               url: url,
+               type: "POST",
+               contentType: "application/json",
+               data: param,
+               beforeSend: function(xhr) {
+                    xhr.setRequestHeader(header, token);
+               },
+               dataType: "json",
+               cache: false,
+               success: function(result, status) {
+                    alert("주문이 취소되었습니다.");
+                    location.href = '/orders/' + [[${page}]];
+               },
+               error: function(jqXHR, status, error) {
+                    if (jqXHR.status == '401') {
+                        alert("로그인 후 이용해 주세요.");
+                        location.href='/member/login';
+                    } else {
+                        alert(jqXHR.responseText);
+                    }
+               }
+            });
+        }
+
+        var $shopMenu = $('#shopMenu');
+            if ($shopMenu.length) {
+                var offset = $shopMenu.offset();
+
+                $(window).scroll(function() {
+                    if ($(window).scrollTop() > offset.top) {
+                        $shopMenu.addClass('sticky').css('left', offset.left + 'px');
+                    } else {
+                        $shopMenu.removeClass('sticky').css('left', '');
+                    }
+                });
+            }
+    </script>
+</th:block>
+</html>

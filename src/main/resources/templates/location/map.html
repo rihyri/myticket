@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<body>
+<th:block layout:fragment="content">
+    <div class="wrap">
+        <section class="s3 map">
+                <h2>경기장 위치</h2>
+                <div class="map_wrap">
+                    <div class="map" id="map" style="width:800px; height:500px; border:1px solid #999;"></div>
+                    <div class="map_info">
+                        <h3>LCK 아레나 (그랑서울 3F, 롤파크)</h3>
+                        <p>서울 종로구 종로 33 그랑서울 타워 3층 롤파크</p>
+                        <p>종각역 (수도권 지하철 1호선) 1번 출구에서 93m</p>
+                        <p>TEL : 02-2039-9584</p>
+                    </div>
+                </div>
+        </section>
+    </div>
+    <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=84d7f5c6f02a77c337157ec349819a44"></script>
+    <script>
+    window.onload = function() {
+        kakao.maps.load(function(){
+        try {
+            var container = document.getElementById('map');
+            var options = {
+                center: new kakao.maps.LatLng(37.57111, 126.9814),
+                level: 1
+            };
+            var map = new kakao.maps.Map(container, options);
+            var markerPosition = new kakao.maps.LatLng(37.57111, 126.9814);
+            var marker = new kakao.maps.Marker({
+                position: markerPosition
+            });
+            marker.setMap(map);
+        } catch (e) {
+            console.error('카카오 맵 로드 중 오류:', e);
+        }
+    });
+}
+</script>
+
+</th:block>
+</body>
+</html>

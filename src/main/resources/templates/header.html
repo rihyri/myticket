@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<th:block th:fragment="headerFrag">
+    <div class="wrap">
+        <header>
+            <div class="first_header">
+                <div class="left_menu">
+                    <div class="logo">
+                        <a th:href="@{/}">
+                            <img th:src="@{/img/ticketlogo.png}" alt="헤더 로고">
+                        </a>
+                    </div>
+                </div>
+                <div th:classappend="${#authorization.expression('isAuthenticated()') ? 'expanded-top-menu' : ''}" class="top_menu">
+                    <a th:href="@{/member/login}" sec:authorize="isAnonymous()">로그인</a>
+                    <a th:href="@{/member/logout}" sec:authorize="isAuthenticated()">로그아웃</a>
+                    <a th:href="@{/member/signup}" th:if="${#authorization.expression('isAnonymous()')}">회원가입</a>
+                    <a th:href="@{/my/myPage}">마이페이지</a>
+                </div>
+            </div>
+            <div class="second_header">
+                <nav>
+                    <ul>
+                        <li><a th:href="@{/}">홈</a></li>
+                        <li><a th:href="@{/games/list}">경기</a></li>
+                        <li><a th:href="@{/my/myReserve}">예매 내역</a></li>
+                        <li><a th:href="@{/shop/home}">MD샵</a></li>
+                        <li><a th:href="@{/event/list}">이벤트</a></li>
+                        <li><a th:href="@{/map}">경기장</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+    </div>
+</th:block>
+</html>

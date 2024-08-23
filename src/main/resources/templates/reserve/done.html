@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout">
+<th:block layout:fragment="content">
+  <div class="wrap">
+    <section class="suc">
+      <form id="successForm">
+        <div class="header-success">
+          <h1>예매가 완료되었습니다.</h1>
+        </div>
+        <dlv class="success-btn">
+          <button onclick="location.href='/my/myReserve'" type="button" class="success-login-btn btn btn-primary">예매내역</button>
+          <a type="button" class="success-home-btn btn btn-secondary" href="/">메인화면</a>
+        </dlv>
+      </form>
+    </section>
+  </div>
+</th:block>
+</html>
