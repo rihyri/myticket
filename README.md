@@ -1,6 +1,7 @@
 ![image](https://github.com/user-attachments/assets/459bb73a-8904-4f9f-8ace-9315d350f9ed)
 
-<br>
+프로젝트 URL : http://3.37.173.105:8080/
+<br><br>
 · 작업기간 :  2024.05.13. - 2024.06.03. (3주)
 <br>
 · 작업인원 :  1명 (이혜리)
